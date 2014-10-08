@@ -9,4 +9,6 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.11'
+    // Uncomment the guava dependency below if you want to use the guava library to solve
+    //  compile 'com.google.guava:guava:18.0'
 }
