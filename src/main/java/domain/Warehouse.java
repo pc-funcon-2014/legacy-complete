@@ -18,18 +18,38 @@ public class Warehouse {
     }
 
     public void inventory() {
+        inventory(new InStockSearchCriteria());
+    }
+
+    public void inventory(final Category category) {
+        inventory(new InStockCategorySearchCriteria(category));
+    }
+
+    public void inventory(ItemSearchCriteria criteria) {
         for (Item item : items) {
-            if (item.isInStock()) {
+            if (criteria.test(item)) {
                 System.out.println(item.name());
             }
         }
     }
 
-    public void inventory(Category category) {
-        for (Item item : items) {
-            if (item.isInStock() && item.isOf(category)) {
-                System.out.println(item.name());
-            }
+    private static class InStockSearchCriteria implements ItemSearchCriteria {
+        @Override
+        public boolean test(Item item) {
+            return item.isInStock();
+        }
+    }
+
+    private static class InStockCategorySearchCriteria implements ItemSearchCriteria {
+        private final Category category;
+
+        public InStockCategorySearchCriteria(Category category) {
+            this.category = category;
+        }
+
+        @Override
+        public boolean test(Item item) {
+            return item.isInStock() && item.isOf(category);
         }
     }
 }
