@@ -24,4 +24,12 @@ public class Warehouse {
             }
         }
     }
+
+    public void inventory(Category category) {
+        for (Item item : items) {
+            if (item.isInStock() && item.isOf(category)) {
+                System.out.println(item.name());
+            }
+        }
+    }
 }
