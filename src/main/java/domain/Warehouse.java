@@ -72,4 +72,12 @@ public class Warehouse {
         }
     }
 
+    public int numberOfItems() {
+        int numberOfItems = 0;
+        for (Item item : items) {
+            numberOfItems += item.quantity();
+        }
+        return numberOfItems;
+    }
+
 }
