@@ -90,5 +90,19 @@ public class Warehouse {
         return numberOfItems;
     }
 
+    public static Item findItemWithLeastQuantity(Set<Warehouse> warehouses) {
+        Item scarcestItem = null;
+        int minQuantity = 0;
+        for (Warehouse warehouse : warehouses) {
+            for (Item item : warehouse.items) {
+                if (item.quantity() < minQuantity || minQuantity == 0) {
+                    scarcestItem = item;
+                    minQuantity = item.quantity();
+                }
+            }
+        }
+        return scarcestItem;
+    }
+
 
 }
