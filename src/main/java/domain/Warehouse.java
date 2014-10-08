@@ -18,7 +18,7 @@ public class Warehouse {
         return this;
     }
 
-    public void products(final ProductSearchCriteria criteria) {
+    public void products(final SearchCriteria<Product> criteria) {
         Collection<Product> products = new HashSet<>();
         for (Item item : items) {
             final Product product = item.product;
@@ -29,7 +29,7 @@ public class Warehouse {
     }
 
     public void products(final String name) {
-        products(new ProductSearchCriteria() {
+        products(new SearchCriteria<Product>() {
             @Override
             public boolean test(Product product) {
                 return product.name.equals(name);
@@ -38,7 +38,7 @@ public class Warehouse {
     }
 
     public void inventory() {
-        inventory(new ItemSearchCriteria() {
+        inventory(new SearchCriteria<Item>() {
             @Override
             public boolean test(Item item) {
                 return item.isInStock();
@@ -47,7 +47,7 @@ public class Warehouse {
     }
 
     public void inventory(final Category category) {
-        inventory(new ItemSearchCriteria() {
+        inventory(new SearchCriteria<Item>() {
             @Override
             public boolean test(Item item) {
                 return item.isInStock() && item.isOf(category);
@@ -55,7 +55,7 @@ public class Warehouse {
         });
     }
 
-    public void inventory(ItemSearchCriteria criteria) {
+    public void inventory(SearchCriteria<Item> criteria) {
         for (Item item : items) {
             if (criteria.test(item)) {
                 System.out.println(item.name());
