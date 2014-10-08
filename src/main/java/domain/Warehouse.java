@@ -7,6 +7,12 @@ import java.util.Set;
 @SuppressWarnings("UnusedDeclaration")
 public class Warehouse {
 
+    public static final SearchCriteria<Item> IN_STOCK = new SearchCriteria<Item>() {
+        @Override
+        public boolean test(Item item) {
+            return item.isInStock();
+        }
+    };
     final Set<Item> items;
 
     public Warehouse() {
@@ -29,30 +35,33 @@ public class Warehouse {
     }
 
     public void products(final String name) {
-        products(new SearchCriteria<Product>() {
+        products(matching(name));
+    }
+
+    private SearchCriteria<Product> matching(final String name) {
+        return new SearchCriteria<Product>() {
             @Override
             public boolean test(Product product) {
                 return product.name.equals(name);
             }
-        });
+        };
     }
 
     public void inventory() {
-        inventory(new SearchCriteria<Item>() {
-            @Override
-            public boolean test(Item item) {
-                return item.isInStock();
-            }
-        });
+        inventory(IN_STOCK);
     }
 
     public void inventory(final Category category) {
-        inventory(new SearchCriteria<Item>() {
+        inventory(ofCategory(category));
+    }
+
+    private SearchCriteria<Item> ofCategory(final Category category) {
+        return new SearchCriteria<Item>() {
             @Override
             public boolean test(Item item) {
                 return item.isInStock() && item.isOf(category);
             }
-        });
+        };
     }
 
     public void inventory(SearchCriteria<Item> criteria) {
