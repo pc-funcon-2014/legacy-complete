@@ -2,7 +2,7 @@ package domain;
 
 public class Item implements Comparable<Item> {
 
-    private final Product product;
+    public final Product product;
     private final int quantity;
 
     public Item(Product product, int quantity) {
