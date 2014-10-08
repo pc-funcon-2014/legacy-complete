@@ -18,11 +18,21 @@ public class Warehouse {
     }
 
     public void inventory() {
-        inventory(new InStockSearchCriteria());
+        inventory(new ItemSearchCriteria() {
+            @Override
+            public boolean test(Item item) {
+                return item.isInStock();
+            }
+        });
     }
 
     public void inventory(final Category category) {
-        inventory(new InStockCategorySearchCriteria(category));
+        inventory(new ItemSearchCriteria() {
+            @Override
+            public boolean test(Item item) {
+                return item.isInStock() && item.isOf(category);
+            }
+        });
     }
 
     public void inventory(ItemSearchCriteria criteria) {
@@ -33,23 +43,4 @@ public class Warehouse {
         }
     }
 
-    private static class InStockSearchCriteria implements ItemSearchCriteria {
-        @Override
-        public boolean test(Item item) {
-            return item.isInStock();
-        }
-    }
-
-    private static class InStockCategorySearchCriteria implements ItemSearchCriteria {
-        private final Category category;
-
-        public InStockCategorySearchCriteria(Category category) {
-            this.category = category;
-        }
-
-        @Override
-        public boolean test(Item item) {
-            return item.isInStock() && item.isOf(category);
-        }
-    }
 }
