@@ -16,4 +16,12 @@ public class Warehouse {
         items.add(new Item(product, quantity));
         return this;
     }
+
+    public void inventory() {
+        for (Item item : items) {
+            if (item.isInStock()) {
+                System.out.println(item.name());
+            }
+        }
+    }
 }
