@@ -1,4 +1,4 @@
-package domain;
+package com.funcon.domain;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -79,5 +79,16 @@ public class Warehouse {
         }
         return numberOfItems;
     }
+
+    public static int numberOfItems(Set<Warehouse> warehouses) {
+        int numberOfItems = 0;
+        for (Warehouse warehouse : warehouses) {
+            for (Item item : warehouse.items) {
+                numberOfItems += numberOfItems + item.quantity();
+            }
+        }
+        return numberOfItems;
+    }
+
 
 }

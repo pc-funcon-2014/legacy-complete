@@ -1,4 +1,4 @@
-package domain;
+package com.funcon.domain;
 
 public interface SearchCriteria<T> {
 
